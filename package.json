@@ -1,0 +1,25 @@
+{
+  "name": "BarChart",
+  "version": "1.0.0",
+  "description": "Data visualisation with D3 bar chart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmandl/BarChart.git"
+  },
+  "keywords": [],
+  "author": "Blaž Mandl (blaz.mandl@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bmandl/BarChart/issues"
+  },
+  "homepage": "https://github.com/bmandl/BarChart#readme",
+  "devDependencies": {
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
+  }
+}
