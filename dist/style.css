@@ -1,0 +1,10 @@
+.center {
+    border: 1px solid black;
+    width: 60vw;
+    height: 98vh;
+    margin: auto;
+}
+
+.bar:hover {
+    fill-opacity: 0.3;
+}
