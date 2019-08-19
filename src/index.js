@@ -3,7 +3,11 @@ import * as d3 from "d3";
 const h = 800;
 const padding = 60;
 
-const svg = d3.select(".center")
+const tooltip = d3.select('.dataDisplay').append('div')
+                  .attr('id', "tooltip")
+                  .style('opacity', 0);
+
+const svgContainer = d3.select(".dataDisplay")
     .append("svg")
     .attr("width", "100%")
     .attr("height", h)
@@ -24,7 +28,7 @@ d3.json('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/mas
 
     const dataset = data.data;
 
-    const w = (d3.select("#svg").node().clientWidth - padding) / dataset.length;
+    const w = (svgContainer.node().clientWidth - padding) / dataset.length;
 
     const xDomain = dateRange(dataset);
 
@@ -37,7 +41,7 @@ d3.json('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/mas
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
 
-    svg.selectAll("rect")
+    svgContainer.selectAll("rect")
         .data(dataset)
         .enter()
         .append("rect")
@@ -50,15 +54,30 @@ d3.json('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/mas
         .attr("class", "bar")
         .attr("data-date", d => d[0])
         .attr("data-gdp", d => d[1])
-        .append("title")
-        .text(d => d[1]);
+        .on("mouseover", (d,i) => {
+            tooltip.transition()
+            .duration(200)
+            .style('opacity',0.9);
+            tooltip.html(`${d[1]}`)
+            .attr("data-date", d[0])
+            .style('left', `${i*w+padding}px`)
+            .style('top', `${h-padding-50}px`)
+            .style('transform', 'translateX(60px)');
+        })
+        .on('mouseout', () => {
+            tooltip.transition()
+                   .duration(200)
+                   .style('opacity',0);
+        });
+        /*.append("title")
+        .text(d => d[1]);*/
 
-    svg.append("g")
+    svgContainer.append("g")
         .attr("id", "x-axis")
         .attr("transform", `translate(0,${(h - padding)})`)
         .call(xAxis);
 
-    svg.append("g")
+    svgContainer.append("g")
         .attr("id", "y-axis")
         .attr("transform", `translate(${(padding)},0)`)
         .call(yAxis);
